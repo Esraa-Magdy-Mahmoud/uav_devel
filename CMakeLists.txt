@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(uav_devel)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -11,6 +11,15 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   sensor_msgs
+  hector_quadrotor_interface
+  tf2 
+  tf2_geometry_msgs 
+  pcl_conversions 
+  pcl_ros 
+  tf 
+  laser_geometry 
+  cv_bridge 
+  image_transport
 )
 
 ## System dependencies are found with CMake's conventions
@@ -116,6 +125,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
+  include ${catkin_INCLUDE_DIRS}
 # include
   ${catkin_INCLUDE_DIRS}
 )
@@ -197,3 +207,26 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+
+
+include_directories(
+  include
+  ${catkin_INCLUDE_DIRS}
+)
+
+
+add_executable(${PROJECT_NAME} 
+  src/${PROJECT_NAME}_node.cpp
+  src/UavPC.cpp
+   
+  )
+
+  
+
+
+## Specify libraries to link a library or executable target against
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+) 
